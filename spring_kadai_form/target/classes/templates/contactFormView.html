@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+		<title>お問い合わせ</title>
+		<style>
+			.form-grid {
+			  display: grid;
+			  grid-template-columns: 9rem 24rem;
+			  align-items: center;
+			}
+
+			.form-grid textarea {
+			  min-height: 12rem;   /* 高さはお好みで */
+			  resize: vertical;    /* 伸縮可にするなら */
+			}
+
+			.form-grid .error {
+			  grid-column: 2;      /* ★ エラーは右カラムに寄せる */
+			  color: red;
+			}
+
+			input {
+				width: 170px;
+			}			
+			
+			textarea {
+				width: 245px;
+			}
+			
+			button {
+				width: 45px;
+			}
+		</style>
+	</head>
+	<body>
+		<h2>お問い合わせフォーム</h2>
+		<form th:action="@{/confirm}" method="post" th:object="${contactForm}" class="form-grid">
+		  <label for="name">お名前</label>
+		  <input id="name" type="text" th:field="*{name}" />
+		  <div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+
+		  <label for="email">メールアドレス</label>
+		  <input id="email" type="text" th:field="*{email}" />
+		  <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+
+		  <label for="message">お問い合わせ内容</label>
+		  <textarea id="message" th:field="*{message}" rows="10" cols="30"></textarea>
+		  <div class="error" th:if="${#fields.hasErrors('message')}" th:errors="*{message}"></div>
+
+		  <button type="submit">送信</button>
+		</form>
+	</body>
+</html>
